@@ -1,5 +1,5 @@
 /*
-File may seems like over commented but its there until i finish the readme.md.
+performing addition in custom data type
 */
 
 #include <stdio.h>
@@ -24,8 +24,9 @@ typedef struct
 // assigning space for array in memory
 void bigInt_init(bigInt *n, int size)
 {
-    n->digits = (int *)malloc(size + 1  * sizeof(int));
-    n->size = size + 1;
+    size = size + 1;
+    n->digits = (int *)malloc(size * sizeof(int));
+    n->size = size;
 }
 
 void bigInt_free(bigInt *n)
@@ -36,25 +37,21 @@ void bigInt_free(bigInt *n)
 }
 
 void bigInt_assign_values(bigInt *n, char *input_str)
-{  
-    int count = 1;
+{
     n->digits[0] = 0;
     for (int i = 0; i < strlen(input_str) - 1; i++)
     {
-        n->digits[count] = (int)input_str[i] - '0';
-        count++;
+        n->digits[i+1] = (int)input_str[i] - '0';
     }
 }
 
 void bigInt_print(bigInt *n)
 {
     int start = 0;
-
     if(n->digits[0] == 0)
     {
         start = 1;
     }
-
     for (int i = start; i < n->size; i++)
     {
         printf("%d", n->digits[i]);
@@ -152,7 +149,7 @@ char *input(char *input_str, int n)
     /*
     checking if lenght of inputted string is equals to the predefine size or not, if yes then checking if 2nd
     last character is new line or not if not then assuming still some characters left to read so assigning memory
-    of double sized and getitng rest of the values from input string, keep doing this until 9th index contains \n
+    of double sized and getitng rest of the values form input string, keep doing this until 9th index contains \n
     */
     while (strlen(input_str) == n - 1 && input_str[n - 2] != '\n') // checking if input_str is enough or not
     {
